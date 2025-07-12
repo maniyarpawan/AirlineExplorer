@@ -1,0 +1,69 @@
+{
+  "success": true,
+  "data" :
+  [
+    {
+      "id": "1",
+      "name": "EasyJet",
+      "country": "United Kingdom",
+      "headquarters": "London Luton Airport",
+      "fleet_size": 342,
+      "website": "https://www.easyjet.com",
+      "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/EasyJet_logo.svg/2560px-EasyJet_logo.svg.png"
+    },
+    {
+      "id": "2",
+      "name": "Jet2",
+      "country": "United Kingdom",
+      "headquarters": "Leeds Bradford Airport",
+      "fleet_size": 119,
+      "website": "https://www.jet2.com",
+      "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Jet2.com_logo.svg/2560px-Jet2.com_logo.svg.png"
+    },
+    {
+      "id": "3",
+      "name": "Air India",
+      "country": "India",
+      "headquarters": "New Delhi",
+      "fleet_size": 120,
+      "website": "https://www.airindia.com",
+      "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/0/01/Air_India_Logo.svg/2560px-Air_India_Logo.svg.png"
+    },
+    {
+      "id": "4",
+      "name": "IndiGo",
+      "country": "India",
+      "headquarters": "Gurugram",
+      "fleet_size": 350,
+      "website": "https://www.goindigo.in",
+      "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/7/7c/IndiGo_Logo.svg/2560px-IndiGo_Logo.svg.png"
+    },
+    {
+      "id": "5",
+      "name": "Singapore Airlines",
+      "country": "Singapore",
+      "headquarters": "Singapore",
+      "fleet_size": 158,
+      "website": "https://www.singaporeair.com",
+      "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Singapore_Airlines_Logo.svg/2560px-Singapore_Airlines_Logo.svg.png"
+    },
+    {
+      "id": "6",
+      "name": "Lufthansa",
+      "country": "Germany",
+      "headquarters": "Cologne",
+      "fleet_size": 275,
+      "website": "https://www.lufthansa.com",
+      "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Lufthansa_Logo_2018.svg/2560px-Lufthansa_Logo_2018.svg.png"
+    },
+    {
+      "id": "7",
+      "name": "Delta Air Lines",
+      "country": "United States",
+      "headquarters": "Atlanta, Georgia",
+      "fleet_size": 910,
+      "website": "https://www.delta.com",
+      "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Delta_Air_Lines_Logo.svg/2560px-Delta_Air_Lines_Logo.svg.png"
+    }
+  ]
+}
