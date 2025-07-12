@@ -22,7 +22,8 @@ class AirlineListUseCase @Inject constructor(
         headquarters = headquarters,
         fleet_size = fleet_size,
         website = website,
-        logo_url = logo_url
+        logo_url = logo_url,
+        isFavourite = isFavourite
     )
 
 }

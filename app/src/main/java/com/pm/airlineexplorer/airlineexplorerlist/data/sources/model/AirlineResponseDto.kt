@@ -7,7 +7,8 @@ data class AirlineResponseDto(
     val headquarters: String,
     val fleet_size: Int,
     val website: String,
-    val logo_url: String
+    val logo_url: String,
+    val isFavourite: Boolean
 )
 
 data class AirlineListResponseDto(

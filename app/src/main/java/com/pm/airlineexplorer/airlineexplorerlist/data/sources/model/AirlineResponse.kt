@@ -7,5 +7,6 @@ data class AirlineResponse(
     val headquarters: String,
     val fleet_size: Int,
     val website: String,
-    val logo_url: String
+    val logo_url: String,
+    val isFavourite: Boolean = false
 )

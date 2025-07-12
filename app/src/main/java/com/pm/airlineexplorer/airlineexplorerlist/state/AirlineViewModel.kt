@@ -4,10 +4,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.pm.airlineexplorer.common.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -35,7 +37,9 @@ class AirlineViewModel @Inject constructor(
 
     internal fun onUiEvent(event: Event) {
         when (event) {
-            is AirlineListStateHolder.UiEvent -> airlineListStateHolder.onUiEvent(event)
+            is AirlineListStateHolder.UiEvent -> viewModelScope.launch {
+                airlineListStateHolder.onUiEvent(event, viewModelScope)
+            }
         }
     }
 }

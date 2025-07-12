@@ -13,16 +13,29 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -30,6 +43,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
+import com.pm.airlineexplorer.airlineexplorerlist.state.AirlineListStateHolder
 import com.pm.airlineexplorer.airlineexplorerlist.state.AirlineViewModel
 import com.pm.airlineexplorer.navigation.Screen
 import com.pm.airlineexplorer.ui.theme.AirlineExplorerTheme
@@ -41,12 +55,59 @@ fun AirlineScreen(
     navController: NavController
 ) {
     val state = viewModel.state.collectAsState().value
+    val searchQuery = remember { mutableStateOf("") }
+    LaunchedEffect(Unit) {
+        searchQuery.value = ""
+        viewModel.onUiEvent(AirlineListStateHolder.UiEvent.ClearSearchQuery)
+    }
 
     AirlineExplorerTheme {
         Scaffold(
             topBar = {
                 TopAppBar(
-                    title = { Text("Airline Explorer") }
+                    title = {
+                        TextField(
+                            value = searchQuery.value,
+                            onValueChange = {
+                                searchQuery.value = it
+                                viewModel.onUiEvent(
+                                    AirlineListStateHolder.UiEvent.UpdateSearchQuery(
+                                        it
+                                    )
+                                )
+                            },
+                            placeholder = { Text("Search by name or country") },
+                            leadingIcon = {
+                                Icon(
+                                    Icons.Filled.Search,
+                                    contentDescription = "Search"
+                                )
+                            },
+                            trailingIcon = {
+                                if (searchQuery.value.isNotEmpty()) {
+                                    IconButton(onClick = {
+                                        searchQuery.value = ""
+                                        viewModel.onUiEvent(
+                                            AirlineListStateHolder.UiEvent.UpdateSearchQuery(
+                                                ""
+                                            )
+                                        )
+                                    }) {
+                                        Icon(Icons.Filled.Clear, contentDescription = "Clear")
+                                    }
+                                }
+                            },
+                            singleLine = true,
+                            colors = TextFieldDefaults.textFieldColors(
+                                containerColor = MaterialTheme.colorScheme.surface,
+                                focusedIndicatorColor = MaterialTheme.colorScheme.primary,
+                                unfocusedIndicatorColor = MaterialTheme.colorScheme.onSurface.copy(
+                                    alpha = 0.5f
+                                )
+                            ),
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                    }
                 )
             }
         ) { innerPadding ->
@@ -63,11 +124,7 @@ fun AirlineScreen(
                             //Text("Loading...")
                         }
                     }
-//        state.airlineUiState.error != null -> {
-//            Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-//                Text("Error: ${state.error}")
-//            }
-//        }
+
                     else -> {
                         if (state.airlineUiState.airlineList.isEmpty() && !state.airlineUiState.isLoading) {
                             Text(
@@ -124,6 +181,19 @@ fun AirlineScreen(
                                                 Text(
                                                     text = "Fleet: ${airline.fleet_size}",
                                                     style = MaterialTheme.typography.bodySmall
+                                                )
+                                            }
+
+                                            IconButton(onClick = {
+                                                viewModel.onUiEvent(
+                                                    AirlineListStateHolder.UiEvent.FavouriteItem(
+                                                        airline.id
+                                                    )
+                                                )
+                                            }) {
+                                                Icon(
+                                                    imageVector = if (airline.isFavourite) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,
+                                                    contentDescription = if (airline.isFavourite) "Unfavourite" else "Favourite"
                                                 )
                                             }
                                         }
